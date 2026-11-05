@@ -19,14 +19,11 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    # Find and restore the .sln file anywhere in the repo
     - name: Restore dependencies
-      run: dotnet restore **/*.sln
+      run: dotnet restore RACEDAY.2.sln
 
-    # Build the solution
     - name: Build API and MVC
-      run: dotnet build **/*.sln --no-restore --configuration Release
+      run: dotnet build RACEDAY.2.sln --no-restore --configuration Release
 
-    # Run the tests
     - name: Run unit tests
-      run: dotnet test **/*.sln --no-build --configuration Release --verbosity normal
+      run: dotnet test RACEDAY.2.sln --no-build --configuration Release --verbosity normal
