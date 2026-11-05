@@ -1,0 +1,29 @@
+name: RaceDay CI/CD
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore RACEDAY.2.sln
+
+    - name: Build API and MVC
+      run: dotnet build RACEDAY.2.sln --no-restore --configuration Release
+
+    - name: Run unit tests
+      run: dotnet test RACEDAY.2.sln --no-build --configuration Release --verbosity normal
